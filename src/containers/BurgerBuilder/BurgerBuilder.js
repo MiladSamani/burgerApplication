@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Auxillary from "../../hoc/auxillary";
 import Burger from "../../components/Burger/Burger";
-import BuildControls from "../../components/Burger/BurgerControls/BurgerControls";
+import BuildControls from "../../components/Burger/BuildControls/BuildControls"
 
 class BurgerBuilder extends Component {
   state = {
