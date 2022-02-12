@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Auxillary from "../../hoc/auxillary";
 import Burger from "../../components/Burger/Burger";
 import BuildControls from "../../components/Burger/BuildControls/BuildControls";
+import { object } from "prop-types";
 
 const INGREDINETS_PRICES = {
   salad: 0.5,
@@ -19,6 +20,16 @@ class BurgerBuilder extends Component {
       meat: 0,
     },
     totalPrice: 4,
+    purchasable: false,
+  };
+
+  updatePurchaseState = (ingredients) => {
+    const sum = Object.keys(ingredients).map((igKey) => {
+        return ingredients[igKey];
+      }).reduce((sum, el) => {
+        return sum + el;
+      }, 0);
+    this.setState({ purchasable: sum > 0 });
   };
 
   addIngredientHandler = (type) => {
@@ -32,6 +43,7 @@ class BurgerBuilder extends Component {
     const oldPrice = this.state.totalPrice;
     const newPrice = oldPrice + priceAddition;
     this.setState({ totalPrice: newPrice, ingredients: updatedIngredient });
+    this.updatePurchaseState(updatedIngredient);
   };
   removeIngredientHandler = (type) => {
     const oldCount = this.state.ingredients[type];
@@ -47,6 +59,7 @@ class BurgerBuilder extends Component {
     const oldPrice = this.state.totalPrice;
     const newPrice = oldPrice - priceDeduction;
     this.setState({ totalPrice: newPrice, ingredients: updatedIngredient });
+    this.updatePurchaseState(updatedIngredient);
   };
 
   render() {
@@ -63,7 +76,8 @@ class BurgerBuilder extends Component {
           ingredientsAdded={this.addIngredientHandler}
           ingredientsRemove={this.removeIngredientHandler}
           disabled={disabledInfo}
-          price = {this.state.totalPrice}
+          purch={this.state.purchasable}
+          price={this.state.totalPrice}
         />
       </Auxillary>
     );
