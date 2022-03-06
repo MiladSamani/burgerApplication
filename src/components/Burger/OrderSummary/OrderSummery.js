@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
-import Auxillary from "../../../hoc/auxillary";
+import Auxillary from "../../../hoc/Auxillary/auxillary";
 import Button from "../../UI/Button/Button";
 
 
 class OrderSummery extends Component {
-  componentWillUnmount(){
-    console.log("updated");
-  }
   render() { 
     const IngredientsSummery = Object.keys(this.props.ingredients).map((igKey) => {
       return (
